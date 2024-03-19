@@ -1,0 +1,17 @@
+.controls_wrapper {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    span {
+        color: #fff;
+        font-size: 2rem;
+    }
+}
+
+.controls_label {
+    font-size: 1.3rem;
+}

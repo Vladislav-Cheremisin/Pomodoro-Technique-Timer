@@ -1,0 +1,38 @@
+.main_wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+    background-color: #262d33;
+}
+
+.timer {
+    font-size: 10rem;
+    font-weight: bold;
+}
+
+.timer_label {
+    font-size: 2rem;
+}
+
+.timer_controls {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+    width: fit-content;
+}
+
+.additional_settings {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
