@@ -93,29 +93,9 @@ class TimeTrackerStore {
   };
 
   /**
-   * Получить текущее значение таймера в формате mm:ss
+   * Получить текущее значение таймера.
    */
-  public getTimerValue = (): string => {
-    const mins = Math.floor(this.timerValue / 60);
-    const seconds = this.timerValue % 60;
-    let result = '';
-
-    if (mins < 10) {
-      result += `0${mins}`;
-    } else {
-      result += mins;
-    }
-
-    result += ':';
-
-    if (seconds < 10) {
-      result += `0${seconds}`;
-    } else {
-      result += seconds;
-    }
-
-    return result;
-  };
+  public getTimerValue = (): number => this.timerValue;
 
   /**
    * Получить длительность перерыва

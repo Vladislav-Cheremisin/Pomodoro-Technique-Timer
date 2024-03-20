@@ -12,6 +12,7 @@ import TIME_TRACKER_INFO from '../utils/constants';
 import styles from './styles.module.scss';
 import TimeTrackerStore from './TimeTrackerStore';
 import AudioNotifier from '../components/Notifiers/AudioNotifier/AudioNotifier';
+import convertToTimerFmt from '../utils/helpers';
 
 const TimeTracker = observer(() => {
   const store = React.useMemo(() => new TimeTrackerStore({
@@ -29,6 +30,10 @@ const TimeTracker = observer(() => {
   const breakLength = store.getBreakLength();
   const isTimerWorking = store.getWorkingStatus();
   const isTimerOnBreak = store.getBreakStatus();
+
+  const formattedValue = React.useMemo(() => (
+    convertToTimerFmt(timerValue)
+  ), [timerValue]);
 
   const onWorkIncrement = React.useCallback(() => {
     store.setWorkLength(workLength + 1);
@@ -70,7 +75,9 @@ const TimeTracker = observer(() => {
         </span>
       </Container>
       <Container text textAlign="center">
-        <span className={styles.timer}>{timerValue}</span>
+        <span className={`${styles.timer} ${timerValue < 60 ? styles.color_red : ''}`}>
+          {formattedValue}
+        </span>
       </Container>
       <div className={styles.timer_controls}>
         <LengthControl
