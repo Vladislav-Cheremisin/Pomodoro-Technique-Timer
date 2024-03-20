@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import styles from './styles.module.scss';
 
@@ -23,13 +23,13 @@ function LengthControl(props: LengthControlProps) {
     onDecrement,
   } = props;
 
-  const onPlusClick = useCallback(() => {
+  const onPlusClick = React.useCallback(() => {
     if (value < max) {
       onIncrement();
     }
   }, [max, onIncrement, value]);
 
-  const onMinusClick = useCallback(() => {
+  const onMinusClick = React.useCallback(() => {
     if (value > min) {
       onDecrement();
     }

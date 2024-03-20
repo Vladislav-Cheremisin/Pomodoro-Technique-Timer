@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   Button,
   ButtonGroup,
@@ -14,7 +14,7 @@ import TimeTrackerStore from './TimeTrackerStore';
 import AudioNotifier from '../components/Notifiers/AudioNotifier/AudioNotifier';
 
 const TimeTracker = observer(() => {
-  const store = useMemo(() => new TimeTrackerStore({
+  const store = React.useMemo(() => new TimeTrackerStore({
     initialData: {
       timerValue: 1500,
       breakLength: 5,
