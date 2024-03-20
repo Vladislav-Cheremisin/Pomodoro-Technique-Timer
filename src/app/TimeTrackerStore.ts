@@ -140,12 +140,12 @@ class TimeTrackerStore {
   public getBreakStatus = (): boolean => this.onBreak;
 
   /**
-   * Увеличить длительность перерыва на 1
+   * Установить длительность перерыва
    */
   @action.bound
-  public incrementBreakLength = () => {
-      if (!this.isWorking && this.breakLength < 60) {
-        this.breakLength += 1;
+  public setBreakLength = (value: number) => {
+      if (!this.isWorking && value > 0 && value <= 60) {
+        this.breakLength = value;
 
         if (this.onBreak) {
           this.timerValue = this.breakLength * 60;
@@ -156,44 +156,12 @@ class TimeTrackerStore {
     };
 
   /**
-   * Уменьшить длительность перерыва на 1
+   * Установить длительность работы
    */
   @action.bound
-  public decrementBreakLength = () => {
-      if (!this.isWorking && this.breakLength > 0) {
-        this.breakLength -= 1;
-
-        if (this.onBreak) {
-          this.timerValue = this.breakLength * 60;
-        }
-
-        this.saveState();
-      }
-    };
-
-  /**
-   * Увеличить длительность работы на 1
-   */
-  @action.bound
-  public incrementWorkLength = () => {
-      if (!this.isWorking && this.workLength < 60) {
-        this.workLength += 1;
-
-        if (!this.onBreak) {
-          this.timerValue = this.workLength * 60;
-        }
-
-        this.saveState();
-      }
-    };
-
-  /**
-   * Уменьшить длительность работы на 1
-   */
-  @action.bound
-  public decrementWorkLength = () => {
-      if (!this.isWorking && this.workLength > 0) {
-        this.workLength -= 1;
+  public setWorkLength = (value: number) => {
+      if (!this.isWorking && value > 0 && value <= 60) {
+        this.workLength = value;
 
         if (!this.onBreak) {
           this.timerValue = this.workLength * 60;

@@ -30,6 +30,22 @@ const TimeTracker = observer(() => {
   const isTimerWorking = store.getWorkingStatus();
   const isTimerOnBreak = store.getBreakStatus();
 
+  const onWorkIncrement = React.useCallback(() => {
+    store.setWorkLength(workLength + 1);
+  }, [store, workLength]);
+
+  const onWorkDecrement = React.useCallback(() => {
+    store.setWorkLength(workLength - 1);
+  }, [store, workLength]);
+
+  const onBreakIncrement = React.useCallback(() => {
+    store.setBreakLength(breakLength + 1);
+  }, [breakLength, store]);
+
+  const onBreakDecrement = React.useCallback(() => {
+    store.setBreakLength(breakLength - 1);
+  }, [breakLength, store]);
+
   return (
     <div className={styles.main_wrapper}>
       <div className={styles.additional_settings}>
@@ -61,15 +77,15 @@ const TimeTracker = observer(() => {
           title="Длительность работы"
           value={workLength}
           disabled={isTimerWorking}
-          onIncrement={store.incrementWorkLength}
-          onDecrement={store.decrementWorkLength}
+          onIncrement={onWorkIncrement}
+          onDecrement={onWorkDecrement}
         />
         <LengthControl
           title="Длительность перерыва"
           value={breakLength}
           disabled={isTimerWorking}
-          onIncrement={store.incrementBreakLength}
-          onDecrement={store.decrementBreakLength}
+          onIncrement={onBreakIncrement}
+          onDecrement={onBreakDecrement}
         />
       </div>
       <ButtonGroup
