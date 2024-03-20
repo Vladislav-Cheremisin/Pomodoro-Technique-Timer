@@ -5,8 +5,9 @@ import styles from './styles.module.scss';
 type LengthControlProps = {
   title: string
   value: number
-  min: number
-  max: number
+  min?: number
+  max?: number
+  disabled?: boolean,
   onIncrement: () => void
   onDecrement: () => void
 };
@@ -15,8 +16,9 @@ function LengthControl(props: LengthControlProps) {
   const {
     title,
     value,
-    min,
-    max,
+    min = 1,
+    max = 60,
+    disabled = false,
     onIncrement,
     onDecrement,
   } = props;
@@ -41,7 +43,7 @@ function LengthControl(props: LengthControlProps) {
           inverted
           circular
           icon="minus"
-          disabled={value <= min}
+          disabled={(value <= min) || disabled}
           onClick={onMinusClick}
         />
         <span>{value}</span>
@@ -50,7 +52,7 @@ function LengthControl(props: LengthControlProps) {
           inverted
           circular
           icon="plus"
-          disabled={value >= max}
+          disabled={(value >= max) || disabled}
           onClick={onPlusClick}
         />
       </div>
