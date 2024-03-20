@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
+import Notifier from '../components/Notifiers/Notifier';
 
 type TimeTrackerData = {
   timerValue: number,
@@ -7,8 +8,15 @@ type TimeTrackerData = {
   onBreak: boolean,
 };
 
+type TimeTrackerStoreProps = {
+  initialData: TimeTrackerData,
+  notifier?: Notifier,
+};
+
 class TimeTrackerStore {
   private defaultData: TimeTrackerData;
+
+  private notifier: Notifier | null;
 
   @observable
   private timerValue: number;
@@ -28,14 +36,9 @@ class TimeTrackerStore {
   @observable
   private timerInterval: ReturnType<typeof setInterval> | null;
 
-  constructor() {
-    this.defaultData = {
-      timerValue: 1500,
-      breakLength: 5,
-      workLength: 25,
-      onBreak: false,
-    };
-
+  constructor(props: TimeTrackerStoreProps) {
+    this.defaultData = { ...props.initialData };
+    this.notifier = props.notifier || null;
     this.timerValue = this.defaultData.timerValue;
     this.breakLength = this.defaultData.breakLength;
     this.workLength = this.defaultData.workLength;
@@ -215,6 +218,10 @@ class TimeTrackerStore {
               : this.breakLength * 60;
 
             this.onBreak = !this.onBreak;
+
+            if (this.notifier) {
+              this.notifier.notify();
+            }
           } else {
             this.timerValue -= 1;
           }

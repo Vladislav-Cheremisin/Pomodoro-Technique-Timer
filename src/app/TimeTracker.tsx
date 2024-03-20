@@ -11,9 +11,18 @@ import LengthControl from '../components/LengthControl/LengthControl';
 import TIME_TRACKER_INFO from '../utils/constants';
 import styles from './styles.module.scss';
 import TimeTrackerStore from './TimeTrackerStore';
+import AudioNotifier from '../components/Notifiers/AudioNotifier/AudioNotifier';
 
 const TimeTracker = observer(() => {
-  const store = useMemo(() => new TimeTrackerStore(), []);
+  const store = useMemo(() => new TimeTrackerStore({
+    initialData: {
+      timerValue: 1500,
+      breakLength: 5,
+      workLength: 25,
+      onBreak: false,
+    },
+    notifier: new AudioNotifier(),
+  }), []);
 
   const timerValue = store.getTimerValue();
   const workLength = store.getWorkLength();
@@ -56,7 +65,7 @@ const TimeTracker = observer(() => {
           onDecrement={store.decrementWorkLength}
         />
         <LengthControl
-          title="Длительность паузы"
+          title="Длительность перерыва"
           value={breakLength}
           disabled={isTimerWorking}
           onIncrement={store.incrementBreakLength}
